@@ -1,0 +1,92 @@
+version: '3.0'
+services:
+  frontend:
+    image: rasa-frontend:local
+    networks:
+      - traefik-rasa
+    deploy:
+      restart_policy:
+        condition: any
+      mode: replicated
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=PathPrefix:/'
+        - 'traefik.port=8888'
+        - 'traefik.tags=traefik-rasa'
+
+  rasa:
+    image: rasa:local
+    networks:
+      - traefik-rasa
+      - backend
+    command:
+      - run
+      - --enable-api
+      - --credentials
+      - credentials.yml
+      - --endpoints
+      - endpoints.yml
+      - --jwt-secret
+      - 01fe0e05aff4babb80e7f176290902a2be7d1f37
+      - --cors
+      - '*'
+    deploy:
+      restart_policy:
+        condition: any
+      mode: replicated
+      replicas: 1
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=PathPrefix:/rasa-api;PathPrefixStrip:/rasa-api'
+        - 'traefik.port=5005'
+        - 'traefik.priority=20'
+        - 'traefik.backend.loadbalancer.stickiness=true'
+        - 'traefik.tags=traefik-rasa'
+
+  action-server:
+    image: rasa-action-server:local
+    networks:
+      - backend
+    deploy:
+      restart_policy:
+        condition: any
+      mode: replicated
+      replicas: 1
+      labels:
+        - 'traefik.enable=false'
+
+  redis:
+    image: redis:5
+    networks:
+      - backend
+    deploy:
+      restart_policy:
+        condition: any
+      mode: replicated
+      replicas: 1
+      labels:
+        - 'traefik.enable=false'
+
+  traefik:
+    image: traefik:1.7
+    ports:
+      - '8042:8042'
+      - '8043:8080'
+    networks:
+      - traefik-rasa
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --web --api --entryPoints="Name:http Address::8042" --defaultentrypoints=http --docker --docker.network=traefik-rasa --docker.domain="localhost" --docker.endpoint="unix:///var/run/docker.sock" --docker.watch=true --docker.exposedbydefault="false" --docker.swarmMode --docker.constraints="tag==traefik-rasa"
+    deploy:
+      restart_policy:
+        condition: any
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  backend:
+  traefik-rasa:

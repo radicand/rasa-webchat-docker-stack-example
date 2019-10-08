@@ -1,0 +1,15 @@
+FROM node:12-alpine
+
+RUN deluser node \
+  && addgroup -S -g 1000 docker \
+	&& adduser -D -S -h /var/cache/docker -s /sbin/nologin -G docker -u 1000 docker
+
+USER docker
+
+EXPOSE 8888
+
+WORKDIR /usr/src/app
+
+COPY ./frontend/index.html /usr/src/app/
+
+ENTRYPOINT ["npx", "http-server", "-p", "8888"]

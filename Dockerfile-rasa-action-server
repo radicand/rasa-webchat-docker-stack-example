@@ -1,0 +1,9 @@
+FROM rasa/rasa-sdk:latest
+
+RUN apt update && apt install -y wget unzip
+RUN wget http://download.geonames.org/export/dump/cities15000.zip
+RUN unzip cities15000.zip
+
+RUN pip install pytz requests datetime world-bank-data
+
+COPY ./app/actions ./actions

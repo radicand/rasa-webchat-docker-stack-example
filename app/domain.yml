@@ -1,0 +1,102 @@
+intents:
+  - greet
+  - affirm
+  - goodbye
+  - negate
+  - feeling_inquiry
+  - state_inquiry
+  - thanks
+  - whoareyou
+  - whoami
+  - ask_time
+  - confusion
+  - reset
+  - ask_country_info
+
+entities:
+  - city
+  - country
+
+slots:
+  city:
+    type: unfeaturized
+  country:
+    type: unfeaturized
+
+templates:
+  utter_greet:
+    - text: Hi
+    - text: Hey there
+    - text: Hello
+  utter_goodbye:
+    - text: Bye for now
+    - text: Goodbye
+    - text: See you later
+  utter_default:
+    - text: Sorry, I didn't understand that. Can you rephrase it? If not, I'm still learning a lot and you might want to try in another few weeks when I might know how to handle that!
+  utter_ack_working_on_it:
+    - text: I'm on it.
+    - text: Working on it...
+    - text: Ok let me see what I can find.
+  utter_feeling_inquiry:
+    - text: I'm doing great, thanks for asking!
+    - text: All's well in the Internet.
+  utter_state_inquiry:
+    - text: Not much going on
+    - text: Pretty quiet here
+    - text: Super busy, but I've always got time for you.
+    - text: The usual :)
+  utter_ask_confirm_results:
+    - text: Is this what you were looking for?
+    - text: Are these results helpful?
+    - text: How about this?
+  utter_ack_findalternatives:
+    - text: Ok, let me see what else there is...
+  utter_ask_resource:
+    - text: What are you looking for?
+  utter_ask_helpmore:
+    - text: Is there anything else that I can help with?
+  utter_ask_howcanhelp:
+    - text: How can I help you?
+    - text: Is there anything I can help with?
+    - text: Do you need anything?
+    - text: What can I do for you today?
+  utter_who_i_am:
+    - text: I'm Worldly, your personal learning concierge :)
+    - text: Worldly's the name, helping you is my game.
+  utter_youre_welcome:
+    - text: No problem
+    - text: Happy to help!
+    - text: You're very welcome.
+  utter_great:
+    - text: Great!
+    - text: Awesome
+  utter_sorry:
+    - text: :( Sorry about that, I'm still working on improving.
+    - text: Hmm, sorry, but thats as good as I can do for now :(
+  utter_done:
+    - text: All set
+    - text: Done!
+    - text: Consider it done.
+    - text: I've taken care of that for you
+
+actions:
+  - utter_greet
+  - utter_goodbye
+  - utter_default
+  - utter_ack_working_on_it
+  - utter_ack_findalternatives
+  - utter_ask_confirm_results
+  - utter_ask_resource
+  - utter_ask_helpmore
+  - utter_ask_howcanhelp
+  - utter_who_i_am
+  - utter_youre_welcome
+  - utter_great
+  - utter_sorry
+  - utter_feeling_inquiry
+  - utter_state_inquiry
+  - utter_done
+  - action_who_are_you
+  - action_tell_time
+  - action_country_info

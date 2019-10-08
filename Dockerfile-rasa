@@ -1,0 +1,6 @@
+FROM rasa/rasa:latest
+
+COPY ./app/models ./models
+COPY ./app/data ./data
+COPY ./app/*.yml ./
+COPY ./app/*.py ./
