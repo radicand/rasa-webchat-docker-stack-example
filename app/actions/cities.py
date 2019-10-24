@@ -1,11 +1,16 @@
 import csv
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 # Very simple example
 
 
 class Cities():
     """Load information about relatively major cities"""
     lookupTable = {}
+    altLookupTable = {}
 
     def __init__(self):
         with open('cities15000.txt') as tsvfile:
@@ -33,26 +38,28 @@ class Cities():
 
                 cityData = {
                     'id': row[0],
-                    'asciiname': row[1],
-                    'name': row[2],
+                    'name': row[1],
+                    'asciiname': row[2],
                     'alternatenames': row[3],
                     'latitude': row[4],
                     'longitude': row[5],
+                    'region': row[11],
                     'countrycode': row[8],
                     'population': row[14],
                     'elevation': row[15],
-                    'timezone': row[17],
-
+                    'timezone': row[17]
                 }
 
                 # create a cheap lookup table of all possible names for a city
-                self.lookupTable[row[0]] = cityData
-                self.lookupTable[row[1]] = cityData
+                self.lookupTable[row[0].lower()] = cityData
+                self.lookupTable[row[1].lower()] = cityData
                 for name in row[3].split(','):
-                    self.lookupTable[name] = cityData
+                    self.altLookupTable[name.lower()] = cityData
 
     def findCity(self, name):
-        if name in self.lookupTable:
-            return self.lookupTable[name]
+        if name.lower() in self.lookupTable:
+            return self.lookupTable[name.lower()]
+        elif name.lower() in self.altLookupTable:
+            return self.altLookupTable[name.lower()]
         else:
             return None

@@ -132,14 +132,24 @@
 - what's the current time
 - what time is it?
 - what's the time good sir?
-- what time is it in (chicago)[city]?
-- if I were in (Tokyo)[city], what time would it be?
-- Mark is in (New york)[city], what time is it there?
-- what's the time in (Tulsa)[city]?
-- what is the time in (Barcelona)[city]
+- what's the time in [Dallas](city)?
+- what time is it in [chicago](city)?
+- what time is it in [sapporo](city)?
+- if I were in [Tokyo](city), what time would it be?
+- Mark is in [New york](city), what time is it there?
+- Julie is in [London](city), what's the time there?
+- what time is it in [manchester](city)
+- what's the time in [Tulsa](city)?
+- what is the time in [Barcelona](city)
+- in [Los Angeles](city), what time is it
+- tell me the time in [Manchester](city)
+- what time is it in [orlando](city)
+- Fred sits in [london](city), what's the time there?
+- what's the time in [dallas](city)?
+- what's the time in [san franscisco](city)?
 
 ## intent:ask_country_info
-- 
+- what's interesting about [England](country)?
 
 ## intent:confusion
 - uh, ok...

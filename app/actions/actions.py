@@ -91,13 +91,17 @@ class ActionTellTime(Action):
         cdata = None
         tzdata = None
 
+        logger.debug(str(tracker))
+
         city = tracker.get_slot('city')
+        dispatcher.utter_message('City: ' + str(city))
         if city != None:
             cdata = cityData.findCity(city)
             if cdata:
                 tzdata = pytz.timezone(cdata['timezone'])
-        else:
-            city = 'UTC'
+            else:
+                dispatcher.utter_message(
+                    'Sorry, I don\'t know where ' + city + ' is. Can you spell it differently?')
 
         try:
             nowtime = datetime.utcnow()
@@ -106,14 +110,17 @@ class ActionTellTime(Action):
                 nowtime = tzdata.localize(nowtime)
 
             t = nowtime.strftime("%H:%M (%b %d)")
-            dispatcher.utter_message(
-                "The current time in " + city + " is " + t)
 
             if cdata:
                 dispatcher.utter_message(
+                    "The current time in " + cdata['name'] + " is " + t)
+                dispatcher.utter_message(
                     "By the way, did you know that city's population is " +
-                    str(city['population']) + "?"
+                    "{:,}".format(cdata['population']) + "?"
                 )
+            else:
+                dispatcher.utter_message(
+                    "The current time here (I didn't understand the city if you said one) is " + t)
 
         except Exception as e:
             dispatcher.utter_message(

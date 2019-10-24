@@ -54,3 +54,25 @@
 ## story_reset
 * reset
   - action_restart
+
+## story_CI01
+* greet
+  - utter_greet
+  - utter_ask_howcanhelp
+* ask_country_info
+  - action_country_info
+
+## story_CI02
+* ask_time
+  - action_tell_time
+* ask_country_info
+  - action_country_info
+
+## story_CI02
+* ask_time
+  - action_tell_time
+* greet
+  - utter_greet
+  - utter_ask_howcanhelp
+* ask_country_info
+  - action_country_info

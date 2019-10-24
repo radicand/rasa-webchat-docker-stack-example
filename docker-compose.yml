@@ -43,6 +43,7 @@ services:
         - 'traefik.priority=20'
         - 'traefik.backend.loadbalancer.stickiness=true'
         - 'traefik.tags=traefik-rasa'
+        - 'traefik.docker.network=rasa-wc-example_traefik-rasa'
 
   action-server:
     image: rasa-action-server:local

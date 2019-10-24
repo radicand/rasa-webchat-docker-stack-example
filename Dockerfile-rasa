@@ -1,4 +1,4 @@
-FROM rasa/rasa:latest
+FROM rasa/rasa:1.4.1
 
 COPY ./app/models ./models
 COPY ./app/data ./data
